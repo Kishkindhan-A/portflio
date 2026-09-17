@@ -1,4 +1,4 @@
-﻿export interface Project {
+export interface Project {
   id: string;
   number: string;
   name: string;
@@ -16,47 +16,47 @@ export const projects: Project[] = [
     name: 'Farm To Home',
     description:
       'Connecting farmers directly to consumers by simplifying farm-to-door delivery — covering collection, sorting and delivery of fresh produce with smart IoT logistics.',
-    tags: ['Logistics', 'Supply Chain', 'Web', 'IoT'],
+    tags: ['IoT Logistics', 'Supply Chain', 'Web App', 'Responsive Design'],
     image: '/assets/projects/farm-to-home.jpg',
     visual: 'earth',
   },
   {
     id: 'driver-monitoring',
     number: '02',
-    name: 'AI Driver Monitoring System',
+    name: 'Driver Safety & Attention Monitor',
     description:
-      'An AI-powered computer vision system that detects driver drowsiness and distraction in real time using facial landmarks, eye closure and head-movement tracking.',
-    tags: ['Python', 'Computer Vision', 'CNN', 'Raspberry Pi'],
+      'A computer-vision safety system deployed on Raspberry Pi that tracks eye closure, head pose, and distraction in real time to deliver instant preventative alerts.',
+    tags: ['Computer Vision', 'Raspberry Pi', 'Python', 'Safety Tech'],
     image: '/assets/projects/driver-monitoring.jpg',
     visual: 'vision',
   },
   {
     id: 'ecotrack',
     number: '03',
-    name: 'EcoTrack — Carbon Footprint Tracker',
+    name: 'EcoTrack — Sustainability Dashboard',
     description:
-      'A full-stack application to monitor and analyze carbon footprints, with secure authentication, interactive dashboard, emission tracking and AI sustainability recommendations.',
-    tags: ['Python', 'Flask', 'PostgreSQL', 'JavaScript'],
+      'A responsive web platform that helps users monitor and calculate carbon footprints, featuring interactive consumption charts and personalized reduction benchmarks.',
+    tags: ['Product Design', 'Flask', 'PostgreSQL', 'Interactive Charts'],
     image: '/assets/projects/ecotrack.jpg',
     visual: 'circuit',
   },
   {
     id: 'smart-energy-meter',
     number: '04',
-    name: 'Smart Energy Meter — Blockchain & IoT',
+    name: 'Smart Energy Meter & Grid Ledger',
     description:
-      'A blockchain-based smart energy metering concept built on ESP32/Raspberry Pi with Ethereum Solidity smart contracts for tamper-resistant grid records & automated billing.',
-    tags: ['ESP32', 'Raspberry Pi', 'Blockchain', 'Solidity'],
+      'An IoT-enabled energy metering system built with ESP32 and Raspberry Pi, integrating decentralized smart contracts for tamper-proof usage logging and automated billing.',
+    tags: ['ESP32', 'Raspberry Pi', 'Smart Grid', 'IoT Hardware'],
     image: '/assets/projects/smart-energy-meter.jpg',
     visual: 'blockchain',
   },
   {
     id: 'rockfall-prediction',
     number: '05',
-    name: 'AI-Based Rockfall Prediction',
+    name: 'Geotechnical Rockfall Risk Predictor',
     description:
-      'An AI-powered geotechnical system to identify potential rockfall-risk areas in open-pit mines using image analysis, risk classification and real-time heatmap visualization.',
-    tags: ['Python', 'AI/ML', 'Computer Vision', 'Streamlit'],
+      'An environmental safety system for open-pit mines that analyzes geological imagery, classifies slope hazard levels, and renders interactive risk heatmaps.',
+    tags: ['Predictive Modeling', 'Computer Vision', 'Streamlit', 'Safety Analytics'],
     image: '/assets/projects/rockfall-prediction.jpg',
     visual: 'rockfall',
   },

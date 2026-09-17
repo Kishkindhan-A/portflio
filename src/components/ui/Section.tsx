@@ -22,14 +22,14 @@ interface EyebrowProps {
 export function Eyebrow({ children }: EyebrowProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -12 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: -8 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.5 }}
-      className="flex items-center gap-2 mb-4"
+      transition={{ duration: 0.4 }}
+      className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50/90 text-emerald-800 border border-emerald-200/80 shadow-xs mb-4 text-xs font-semibold uppercase tracking-wider"
     >
-      <span className="h-3 w-px bg-emerald-glow" />
-      <span className="label-tag">{children}</span>
+      <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+      <span>{children}</span>
     </motion.div>
   );
 }

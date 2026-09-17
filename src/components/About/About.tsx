@@ -58,7 +58,7 @@ export function About() {
 
         {/* RIGHT: capabilities */}
         <Reveal delay={0.25}>
-          <p className="label-tag mb-5">What I Love To Do</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-5">Areas of Specialization</p>
           <div className="space-y-3.5">
             {profile.capabilities.map((cap) => {
               const Icon = ICONS[cap.icon] ?? Code2;
@@ -98,15 +98,13 @@ function Portrait() {
             alt={profile.name}
             className="w-full h-auto object-cover rounded-2xl"
           />
-          {/* subtle scan line accent */}
-          <div className="absolute inset-x-0 top-1/2 h-px bg-emerald-glow/40 animate-scan z-20" />
         </div>
       </div>
 
-      <div className="mt-3.5 glass-panel px-4 py-3 text-center rounded-2xl">
-        <p className="font-mono text-xs font-bold text-emerald-light tracking-wider">&lt;Developer/&gt;</p>
-        <p className="text-[11px] text-slate-500 mt-0.5 tracking-wider font-mono font-medium">
-          Problem Solver • Tech Explorer • Creator
+      <div className="mt-3.5 glass-panel px-4 py-3.5 text-center rounded-2xl border border-slate-200/80 shadow-sm">
+        <p className="font-display text-sm font-bold text-slate-900">{profile.name}</p>
+        <p className="text-xs text-slate-500 mt-0.5 font-medium">
+          Full-Stack Developer &amp; UI/UX Designer
         </p>
       </div>
     </motion.div>

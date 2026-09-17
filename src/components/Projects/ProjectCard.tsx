@@ -72,7 +72,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[11px] font-mono font-semibold px-3 py-1 rounded-xl liquid-pill text-slate-700 hover:text-emerald-light hover:border-emerald-glow/40 transition-colors"
+                className="text-xs font-medium px-3 py-1 rounded-full bg-slate-50/90 border border-slate-200/80 text-slate-700 hover:border-emerald-300 hover:text-emerald-800 transition-colors shadow-2xs"
               >
                 {tag}
               </span>
@@ -82,19 +82,19 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       </div>
 
       {/* Card Footer Action */}
-      <div className="px-6 pb-6 pt-3 flex items-center justify-between border-t border-slate-100 bg-slate-50/40">
-        <span className="text-xs font-mono font-semibold text-slate-500 group-hover:text-emerald-light transition-colors flex items-center gap-1.5">
-          <Sparkles size={12} className="text-emerald-light/70 opacity-0 group-hover:opacity-100 transition-opacity" />
-          View Source / Demo
+      <div className="px-6 pb-5 pt-3.5 flex items-center justify-between border-t border-slate-100 bg-slate-50/50">
+        <span className="text-xs font-semibold text-slate-600 group-hover:text-emerald-700 transition-colors flex items-center gap-1.5">
+          <Sparkles size={13} className="text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+          View Case Study / Demo
         </span>
         <a
           href={projectUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View ${project.name}`}
-          className="h-10 w-10 flex items-center justify-center rounded-2xl liquid-bubble text-slate-700 group-hover:text-emerald-light group-hover:scale-110"
+          className="h-9 w-9 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-700 group-hover:text-emerald-600 group-hover:border-emerald-300 group-hover:shadow-sm transition-all"
         >
-          <ArrowUpRight size={17} />
+          <ArrowUpRight size={16} />
         </a>
       </div>
     </motion.div>

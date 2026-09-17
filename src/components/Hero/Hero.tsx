@@ -42,28 +42,26 @@ export function Hero() {
           {/* LEFT: content */}
           <motion.div variants={container} initial="hidden" animate="show" className="relative z-20">
 
-            {/* Online badge */}
+            {/* Availability status badge */}
             <motion.div
               variants={item}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full liquid-pill mb-6"
-              style={{ boxShadow: '0 2px 12px rgba(16,185,129,0.12)' }}
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-emerald-800 shadow-sm mb-6"
             >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-glow opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-glow"
-                      style={{ boxShadow: '0 0 8px #10B981' }} />
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
               </span>
-              <span className="text-xs font-mono tracking-widest text-emerald-light font-bold">
-                SYSTEM ONLINE
+              <span className="text-xs font-semibold tracking-wide">
+                Available for internships &amp; developer roles
               </span>
             </motion.div>
 
             {/* Greeting */}
             <motion.p variants={item} className="text-slate-600 text-lg font-body mb-1.5 flex items-center gap-2 font-medium">
-              Hi, I&apos;m <Sparkles size={16} className="text-emerald-light animate-pulse-slow" />
+              Hi, I&apos;m <Sparkles size={16} className="text-emerald-light" />
             </motion.p>
 
-            {/* Name — high contrast luxury dark slate to emerald/sky gradient */}
+            {/* Name */}
             <motion.h1
               variants={item}
               className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight bg-clip-text text-transparent glow-text mb-4"
@@ -74,13 +72,17 @@ export function Hero() {
               {profile.name}
             </motion.h1>
 
-            {/* Roles — emerald accent */}
-            <motion.p
-              variants={item}
-              className="font-mono text-sm sm:text-base tracking-wide mb-5 font-semibold text-emerald-light"
-            >
-              {profile.roles.join(' | ')}
-            </motion.p>
+            {/* Human designer / developer specialization chips */}
+            <motion.div variants={item} className="flex flex-wrap items-center gap-2 mb-6">
+              {profile.roles.map((role) => (
+                <span
+                  key={role}
+                  className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100/90 text-slate-700 border border-slate-200/80 shadow-xs"
+                >
+                  {role}
+                </span>
+              ))}
+            </motion.div>
 
             {/* Bio */}
             <motion.p variants={item} className="text-slate-600 leading-relaxed max-w-lg mb-8 text-sm sm:text-base font-normal">
@@ -99,7 +101,7 @@ export function Hero() {
 
             {/* Social links */}
             <motion.div variants={item} className="relative z-30">
-              <p className="label-tag mb-3 text-[11px]">Find Me On</p>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Connect With Me</p>
               <div className="flex items-center gap-3.5">
                 {[
                   { icon: Github,   href: profile.github,               label: 'GitHub'   },
@@ -123,23 +125,23 @@ export function Hero() {
             {/* Metric widgets */}
             <motion.div
               variants={item}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 max-w-xl"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mt-10 max-w-xl"
             >
               {profile.metrics.map((m) => (
                 <div
                   key={m.label}
-                  className="glass-panel px-4 py-3.5 text-center hover:scale-[1.03] transition-transform duration-300"
+                  className="glass-panel px-4 py-3.5 text-center hover:scale-[1.02] transition-transform duration-300"
                 >
-                  <p className="font-display font-bold text-xl sm:text-2xl text-emerald-light">
+                  <p className="font-display font-extrabold text-2xl text-slate-900">
                     {m.value}
                   </p>
-                  <p className="label-tag mt-1 text-[10px]">{m.label}</p>
+                  <p className="text-[11px] font-medium text-slate-500 mt-1 uppercase tracking-wider">{m.label}</p>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: globe + HUD */}
+          {/* RIGHT: globe + Human Snapshot Card */}
           <div className="relative z-10">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -149,17 +151,32 @@ export function Hero() {
               <GlobeCanvas />
             </motion.div>
 
-            {/* HUD panel */}
+            {/* Designer Snapshot Card */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="hidden md:block absolute top-4 right-0 glass-panel-strong px-5 py-4 space-y-3.5 min-w-[145px] rounded-3xl"
+              className="hidden md:block absolute top-4 right-0 glass-panel-strong px-5 py-4 space-y-3 min-w-[185px] rounded-3xl shadow-lg border border-slate-200/80"
             >
-              <HudRow label="Status"   value={profile.hud.status}   valueClass="text-emerald-light font-bold" />
-              <HudRow label="Network"  value={profile.hud.network}  valueClass="text-emerald-light font-bold" />
-              <HudRow label="Location" value={profile.hud.location} />
-              <HudRow label="Time"     value={<LiveClock />} />
+              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Current Base</span>
+                <span className="text-xs font-semibold text-slate-800">India 🇮🇳</span>
+              </div>
+              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Local Time</span>
+                <span className="text-xs font-mono font-medium text-emerald-700"><LiveClock /></span>
+              </div>
+              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</span>
+                <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Open to Work
+                </span>
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Focus</span>
+                <span className="text-xs font-medium text-slate-700">UI/UX &amp; IoT Systems</span>
+              </div>
             </motion.div>
 
             {/* Scroll hint */}
@@ -169,31 +186,14 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="hidden md:flex absolute bottom-4 right-2 flex-col items-center gap-1.5 text-slate-400"
             >
-              <span className="label-tag text-[9px]">Scroll</span>
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">Scroll</span>
               <div className="h-8 w-5 rounded-full border border-slate-300 flex items-start justify-center p-1 backdrop-blur-sm">
-                <MousePointer2 size={10} className="animate-pulse-slow text-emerald-light" />
+                <MousePointer2 size={10} className="animate-pulse-slow text-emerald-600" />
               </div>
             </motion.div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function HudRow({
-  label,
-  value,
-  valueClass = 'text-slate-800 font-medium',
-}: {
-  label: string;
-  value: ReactNode;
-  valueClass?: string;
-}) {
-  return (
-    <div>
-      <p className="label-tag text-[9px] text-slate-400 mb-0.5">{label}</p>
-      <p className={`font-mono text-xs ${valueClass}`}>{value}</p>
-    </div>
   );
 }

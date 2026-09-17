@@ -1,8 +1,8 @@
 export const profile = {
   name: 'Kishkindhan A',
   firstName: 'Kishkindhan',
-  roles: ['AI/ML Enthusiast', 'Full Stack Developer', 'UI/UX Designer', 'Tech Explorer'],
-  location: 'India',
+  roles: ['Full Stack Developer', 'UI/UX Designer', 'IoT & Embedded Systems Engineer'],
+  location: 'Coimbatore, India',
   email: 'kkishkindhan@gmail.com',
   phone: '+91 96293 37872',
   github: 'https://github.com/Kishkindhan-A',
@@ -11,60 +11,60 @@ export const profile = {
   photoUrl: '/assets/profile/kishkindhan.png',
 
   heroIntro:
-    'I build intelligent, real-world solutions at the intersection of AI, full-stack development, and thoughtful design — with a strong foundation in Java and data structures, and a drive for continuous learning.',
+    'I design and build intuitive digital experiences and connected hardware systems — combining clean full-stack architecture, human-centered UI/UX design, and practical engineering.',
 
-  aboutHeading: ['Building The Future', 'With Code & Creativity'],
+  aboutHeading: ['Crafting Intuitive Experiences', 'Through Code & Design'],
   aboutBody:
-    "I'm a passionate and adaptable Computer Science student with a strong foundation in Java and data structures. I enjoy solving real-world problems, working across AI, full-stack development, and UI/UX, and I thrive in collaborative environments — always learning quickly and growing through innovation.",
+    "I am a Computer Science student and software builder with a deep appreciation for thoughtful UI/UX and solid engineering foundations. I love turning complex ideas into clean, usable web apps and connected IoT solutions — paying close attention to user flow, micro-interactions, and reliable architecture.",
 
   aboutInfo: [
     { label: 'Name', value: 'Kishkindhan A' },
-    { label: 'Location', value: 'India' },
+    { label: 'Location', value: 'Coimbatore, Tamil Nadu, India' },
     { label: 'Education', value: 'B.Tech — Computer Science & Business Systems' },
     { label: 'Institute', value: 'Dr. N.G.P Institute of Technology' },
     { label: 'CGPA', value: '6.9 (6th Semester)' },
-    { label: 'Focus', value: 'AI • Full Stack • UI/UX • Problem Solving' },
+    { label: 'Specialization', value: 'UI/UX Design • Full Stack Web • IoT Systems' },
   ],
 
   capabilities: [
     {
-      title: 'AI & Machine Learning',
-      desc: 'Building intelligent models and computer-vision systems',
-      icon: 'BrainCircuit',
-    },
-    {
-      title: 'Full Stack Development',
-      desc: 'Creating end-to-end web applications',
-      icon: 'Code2',
-    },
-    {
-      title: 'UI/UX Design',
-      desc: 'Designing clean, user-friendly interfaces in Figma',
+      title: 'UI/UX & Product Design',
+      desc: 'Crafting user journeys, responsive wireframes, and design systems in Figma',
       icon: 'PenTool',
     },
     {
-      title: 'Problem Solving',
-      desc: 'Solving real-world challenges with practical systems',
-      icon: 'Puzzle',
+      title: 'Full Stack Web Development',
+      desc: 'Building responsive, scalable web applications with modern frontend & APIs',
+      icon: 'Code2',
     },
     {
-      title: 'Hardware & IoT',
-      desc: 'Exploring embedded systems, IoT and PC hardware',
+      title: 'IoT & Embedded Systems',
+      desc: 'Interfacing microcontrollers (ESP32, Raspberry Pi) with real-world sensors',
       icon: 'Cpu',
+    },
+    {
+      title: 'Machine Learning & Vision',
+      desc: 'Applying practical computer-vision and predictive models to real problems',
+      icon: 'BrainCircuit',
+    },
+    {
+      title: 'Systems & Architecture',
+      desc: 'Designing robust data structures and database systems in Java & MySQL',
+      icon: 'Puzzle',
     },
   ],
 
   metrics: [
-    { label: 'Projects', value: '06+' },
-    { label: 'Tech Stack', value: '20+' },
-    { label: 'Experience', value: '0–1 YR' },
-    { label: 'Focus', value: 'AI, IoT & Full Stack' },
+    { label: 'Selected Projects', value: '06+' },
+    { label: 'Core Technologies', value: '20+' },
+    { label: 'Industry Exposure', value: 'Internship' },
+    { label: 'Primary Focus', value: 'Web, IoT & UX' },
   ],
 
   hud: {
-    status: 'ONLINE',
-    network: 'CONNECTED',
-    location: 'INDIA',
+    status: 'Open to Opportunities',
+    network: 'Available for Hire',
+    location: 'Coimbatore, India',
   },
 };
 
