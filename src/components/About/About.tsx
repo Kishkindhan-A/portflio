@@ -15,64 +15,81 @@ const ICONS: Record<string, typeof BrainCircuit> = {
 export function About() {
   return (
     <Section id="about">
-      <Eyebrow>About Me</Eyebrow>
+      <Eyebrow>About me</Eyebrow>
       <Reveal>
-        <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-14 max-w-2xl text-slate-900">
+        <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-12 max-w-2xl" style={{ color: 'var(--ink)' }}>
           {profile.aboutHeading[0]}{' '}
-          <span className="bg-gradient-to-r from-slate-900 via-emerald-light to-sky-accent bg-clip-text text-transparent">
+          <span style={{ color: 'var(--accent)' }}>
             {profile.aboutHeading[1]}
           </span>
         </h2>
       </Reveal>
 
       <div className="grid lg:grid-cols-[1fr_auto_1fr] gap-10 items-start">
-        {/* LEFT: bio + info panel */}
+        {/* LEFT: bio + info table */}
         <Reveal delay={0.05} className="space-y-6">
-          <p className="text-slate-600 leading-relaxed text-base">{profile.aboutBody}</p>
+          <p className="leading-relaxed text-base" style={{ color: 'var(--ink-muted)' }}>
+            {profile.aboutBody}
+          </p>
 
-          <div className="glass-panel p-6 space-y-3.5 rounded-3xl shadow-[0_4px_20px_rgba(15,23,42,0.04)]">
+          <div className="rounded-xl border p-5 space-y-3" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
             {profile.aboutInfo.map((row) => (
               <div
                 key={row.label}
-                className="flex justify-between gap-4 text-sm border-b border-slate-100 pb-2.5 last:border-0 last:pb-0"
+                className="flex justify-between gap-4 text-sm border-b pb-2.5 last:border-0 last:pb-0"
+                style={{ borderColor: 'var(--border)' }}
               >
-                <span className="text-slate-500 font-mono text-xs uppercase tracking-wider font-semibold">
+                <span className="font-medium text-xs uppercase tracking-wider" style={{ color: 'var(--ink-subtle)' }}>
                   {row.label}
                 </span>
-                <span className="text-slate-900 font-semibold text-right">{row.value}</span>
+                <span className="font-semibold text-right" style={{ color: 'var(--ink)', maxWidth: '60%' }}>{row.value}</span>
               </div>
             ))}
           </div>
 
-          <div className="pt-2">
+          <div className="pt-1">
             <Button href={profile.resumeUrl} target="_blank" icon={<Download size={15} />}>
-              DOWNLOAD RESUME
+              Download Resume
             </Button>
           </div>
         </Reveal>
 
-        {/* CENTER: portrait (Luxury Architectural Frame) */}
+        {/* CENTER: portrait */}
         <Reveal delay={0.15} className="mx-auto">
           <Portrait />
         </Reveal>
 
         {/* RIGHT: capabilities */}
         <Reveal delay={0.25}>
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-5">Areas of Specialization</p>
-          <div className="space-y-3.5">
+          <p className="text-xs font-semibold uppercase tracking-wider mb-5" style={{ color: 'var(--ink-subtle)' }}>
+            What I do
+          </p>
+          <div className="space-y-3">
             {profile.capabilities.map((cap) => {
               const Icon = ICONS[cap.icon] ?? Code2;
               return (
                 <div
                   key={cap.title}
-                  className="glass-panel p-4 sm:p-5 flex items-start gap-4 rounded-3xl hover:-translate-y-1 hover:border-emerald-glow/45 transition-all duration-300"
+                  className="flex items-start gap-3.5 p-4 rounded-xl border transition-all duration-200"
+                  style={{
+                    background: 'var(--surface)',
+                    borderColor: 'var(--border)',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(45,122,79,0.08)';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+                  }}
                 >
-                  <div className="h-11 w-11 shrink-0 rounded-2xl liquid-bubble flex items-center justify-center text-emerald-light">
-                    <Icon size={19} />
+                  <div className="icon-wrap h-9 w-9 shrink-0 mt-0.5" style={{ borderRadius: 8 }}>
+                    <Icon size={17} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-slate-900">{cap.title}</p>
-                    <p className="text-xs text-slate-500 mt-1 leading-normal">{cap.desc}</p>
+                    <p className="text-sm font-bold" style={{ color: 'var(--ink)' }}>{cap.title}</p>
+                    <p className="text-xs mt-0.5 leading-relaxed" style={{ color: 'var(--ink-subtle)' }}>{cap.desc}</p>
                   </div>
                 </div>
               );
@@ -88,23 +105,29 @@ function Portrait() {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-64 sm:w-72"
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="relative w-60 sm:w-64"
     >
-      <div className="relative rounded-3xl overflow-hidden glass-panel-strong p-2.5 shadow-[0_16px_40px_-8px_rgba(15,23,42,0.08)]">
-        <div className="relative rounded-2xl overflow-hidden bg-slate-100">
+      <div
+        className="relative rounded-2xl overflow-hidden p-1.5"
+        style={{ background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: '0 8px 32px rgba(26,26,24,0.08)' }}
+      >
+        <div className="relative rounded-xl overflow-hidden" style={{ background: '#E8E8E3' }}>
           <img
             src={profile.photoUrl}
             alt={profile.name}
-            className="w-full h-auto object-cover rounded-2xl"
+            className="w-full h-auto object-cover rounded-xl"
           />
         </div>
       </div>
 
-      <div className="mt-3.5 glass-panel px-4 py-3.5 text-center rounded-2xl border border-slate-200/80 shadow-sm">
-        <p className="font-display text-sm font-bold text-slate-900">{profile.name}</p>
-        <p className="text-xs text-slate-500 mt-0.5 font-medium">
-          Full-Stack Developer &amp; UI/UX Designer
+      <div
+        className="mt-2.5 px-4 py-3 text-center rounded-xl border"
+        style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+      >
+        <p className="font-display text-sm font-bold" style={{ color: 'var(--ink)' }}>{profile.name}</p>
+        <p className="text-xs mt-0.5" style={{ color: 'var(--ink-subtle)' }}>
+          Full-Stack Developer & UI/UX Designer
         </p>
       </div>
     </motion.div>

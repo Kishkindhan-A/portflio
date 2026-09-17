@@ -5,27 +5,38 @@ import { languages } from '../../data/profile';
 export function Skills() {
   return (
     <Section id="skills">
-      <Eyebrow>My Tech Stack</Eyebrow>
+      <Eyebrow>Skills</Eyebrow>
       <Reveal>
-        <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl mb-4 text-slate-900">
-          Tools &amp; <span className="text-emerald-light font-extrabold">Technologies</span>
+        <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl mb-3" style={{ color: 'var(--ink)' }}>
+          Tools &{' '}
+          <span style={{ color: 'var(--accent)' }}>Technologies</span>
         </h2>
-        <p className="text-slate-600 max-w-xl mb-12 text-sm sm:text-base">
-          Technologies I&apos;ve actually worked with, drawn from coursework, internships, and
-          personal projects.
+        <p className="max-w-xl mb-12 text-base" style={{ color: 'var(--ink-muted)' }}>
+          Technologies I've actually used — from coursework, internships, and personal projects.
         </p>
       </Reveal>
 
-      {/* scrolling tech strip with frosted glass backdrop */}
+      {/* Scrolling tech strip */}
       <Reveal delay={0.05}>
-        <div className="relative overflow-hidden py-3.5 mb-16 glass-panel rounded-2xl shadow-sm border border-slate-200/70">
-          <div className="flex gap-4 whitespace-nowrap animate-[scroll_28s_linear_infinite] hover:[animation-play-state:paused]">
+        <div
+          className="relative overflow-hidden rounded-xl py-3 mb-14 border"
+          style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+        >
+          <div className="flex gap-3 whitespace-nowrap" style={{ animation: 'scrollTape 28s linear infinite' }}>
             {[...techStack, ...techStack].map((tech, i) => (
               <span
                 key={`${tech}-${i}`}
-                className="text-xs font-semibold text-slate-800 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200/80 flex items-center gap-2 shrink-0 shadow-xs hover:border-emerald-300 transition-colors"
+                className="text-xs font-medium shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-md border"
+                style={{
+                  background: 'var(--bg)',
+                  borderColor: 'var(--border)',
+                  color: 'var(--ink-muted)',
+                }}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span
+                  className="h-1.5 w-1.5 rounded-full shrink-0"
+                  style={{ background: 'var(--accent)' }}
+                />
                 {tech}
               </span>
             ))}
@@ -33,46 +44,76 @@ export function Skills() {
         </div>
       </Reveal>
 
-      <style>{`
-        @keyframes scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {skillGroups.map((group, i) => (
           <Reveal key={group.label} delay={0.05 * i}>
-            <div className="glass-panel p-6 h-full rounded-3xl hover:border-emerald-300/80 hover:-translate-y-1 hover:shadow-md transition-all duration-300 border border-slate-200/70">
-              <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-2.5">
-                <h3 className="font-display font-bold text-sm text-slate-900 tracking-wide uppercase">{group.label}</h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-mono">{group.items.length}</span>
+            <div
+              className="p-5 h-full rounded-xl border transition-all duration-200"
+              style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
+              }}
+            >
+              <div
+                className="flex items-center justify-between mb-4 pb-2.5 border-b"
+                style={{ borderColor: 'var(--border)' }}
+              >
+                <h3 className="font-semibold text-sm" style={{ color: 'var(--ink)' }}>
+                  {group.label}
+                </h3>
+                <span
+                  className="text-xs font-bold px-2 py-0.5 rounded"
+                  style={{ background: 'var(--accent-pale)', color: 'var(--accent)', fontFamily: 'monospace' }}
+                >
+                  {group.items.length}
+                </span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="text-xs font-medium px-3 py-1.5 rounded-xl bg-slate-50/90 text-slate-700 border border-slate-200/70 hover:border-emerald-300 hover:text-emerald-700 hover:bg-white transition-all shadow-xs"
-                  >
-                    {item}
-                  </span>
+                  <span key={item} className="tag">{item}</span>
                 ))}
               </div>
             </div>
           </Reveal>
         ))}
 
+        {/* Spoken Languages */}
         <Reveal delay={0.05 * skillGroups.length}>
-          <div className="glass-panel p-6 h-full rounded-3xl hover:border-emerald-300/80 hover:-translate-y-1 hover:shadow-md transition-all duration-300 border border-slate-200/70">
-            <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-2.5">
-              <h3 className="font-display font-bold text-sm text-slate-900 tracking-wide uppercase">Spoken Languages</h3>
-              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-mono">{languages.length}</span>
+          <div
+            className="p-5 h-full rounded-xl border"
+            style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+          >
+            <div
+              className="flex items-center justify-between mb-4 pb-2.5 border-b"
+              style={{ borderColor: 'var(--border)' }}
+            >
+              <h3 className="font-semibold text-sm" style={{ color: 'var(--ink)' }}>
+                Spoken Languages
+              </h3>
+              <span
+                className="text-xs font-bold px-2 py-0.5 rounded"
+                style={{ background: 'var(--accent-pale)', color: 'var(--accent)', fontFamily: 'monospace' }}
+              >
+                {languages.length}
+              </span>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {languages.map((lang) => (
-                <div key={lang.name} className="flex justify-between items-center text-sm border-b border-slate-100 pb-2.5 last:border-0 last:pb-0">
-                  <span className="text-slate-900 font-semibold">{lang.name}</span>
-                  <span className="text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200/60">{lang.level}</span>
+                <div
+                  key={lang.name}
+                  className="flex justify-between items-center text-sm pb-2 border-b last:border-0 last:pb-0"
+                  style={{ borderColor: 'var(--border)' }}
+                >
+                  <span className="font-semibold" style={{ color: 'var(--ink)' }}>{lang.name}</span>
+                  <span
+                    className="text-xs font-medium px-2.5 py-0.5 rounded-md"
+                    style={{ background: 'var(--accent-pale)', color: 'var(--accent)' }}
+                  >
+                    {lang.level}
+                  </span>
                 </div>
               ))}
             </div>

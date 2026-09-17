@@ -1,101 +1,92 @@
-import { useRef, useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '../../data/projects';
 import { profile } from '../../data/profile';
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: py * -6, y: px * 8 });
-  }
-
-  function handleLeave() {
-    setTilt({ x: 0, y: 0 });
-  }
-
   const projectUrl = project.link || profile.github;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleLeave}
-      style={{
-        transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: 'transform 0.25s ease-out',
+      transition={{ duration: 0.45, delay: (index % 3) * 0.07 }}
+      className="group flex flex-col justify-between rounded-xl border overflow-hidden transition-all duration-200"
+      style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+      onMouseEnter={e => {
+        const t = e.currentTarget as HTMLElement;
+        t.style.borderColor = 'var(--border-hi)';
+        t.style.boxShadow = '0 8px 24px rgba(26,26,24,0.08)';
       }}
-      className="group glass-panel rounded-3xl overflow-hidden flex flex-col justify-between hover:border-emerald-glow/45 hover:shadow-[0_16px_40px_-6px_rgba(15,23,42,0.08),0_0_24px_rgba(16,185,129,0.12)]"
+      onMouseLeave={e => {
+        const t = e.currentTarget as HTMLElement;
+        t.style.borderColor = 'var(--border)';
+        t.style.boxShadow = 'none';
+      }}
     >
-      <div>
-        {/* Project Image Banner */}
-        <div className="relative h-48 overflow-hidden rounded-t-3xl bg-slate-100">
-          <img
-            src={project.image}
-            alt={project.name}
-            loading="lazy"
-            onLoad={() => setImgLoaded(true)}
-            className={`w-full h-full object-cover object-center transform group-hover:scale-108 transition-all duration-700 ease-out ${
-              imgLoaded ? 'opacity-100' : 'opacity-0 scale-95'
-            }`}
-          />
-          {/* Subtle Vignette Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent pointer-events-none" />
-
-          {/* Project Number Badge */}
-          <span className="absolute top-3.5 left-3.5 font-mono text-xs text-slate-900 font-extrabold tracking-widest px-3 py-1 rounded-full bg-white/95 shadow-[0_2px_8px_rgba(0,0,0,0.15)] backdrop-blur-md">
-            {project.number}
-          </span>
-        </div>
-
-        {/* Card Content */}
-        <div className="p-6">
-          <h3 className="font-display font-bold text-lg text-slate-900 mb-2 group-hover:text-emerald-light transition-colors duration-300 flex items-center justify-between">
-            <span>{project.name}</span>
-          </h3>
-          <p className="text-sm text-slate-600 leading-relaxed mb-5 min-h-[64px]">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs font-medium px-3 py-1 rounded-full bg-slate-50/90 border border-slate-200/80 text-slate-700 hover:border-emerald-300 hover:text-emerald-800 transition-colors shadow-2xs"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+      {/* Project image */}
+      <div className="relative h-44 overflow-hidden" style={{ background: '#E8E8E3' }}>
+        <img
+          src={project.image}
+          alt={project.name}
+          loading="lazy"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+        />
+        {/* Number badge */}
+        <span
+          className="absolute top-3 left-3 font-mono text-xs font-bold px-2.5 py-1 rounded-md"
+          style={{
+            background: 'rgba(248,248,245,0.94)',
+            color: 'var(--ink)',
+            backdropFilter: 'blur(6px)',
+          }}
+        >
+          {project.number}
+        </span>
       </div>
 
-      {/* Card Footer Action */}
-      <div className="px-6 pb-5 pt-3.5 flex items-center justify-between border-t border-slate-100 bg-slate-50/50">
-        <span className="text-xs font-semibold text-slate-600 group-hover:text-emerald-700 transition-colors flex items-center gap-1.5">
-          <Sparkles size={13} className="text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-          View Case Study / Demo
-        </span>
-        <a
-          href={projectUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View ${project.name}`}
-          className="h-9 w-9 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-700 group-hover:text-emerald-600 group-hover:border-emerald-300 group-hover:shadow-sm transition-all"
-        >
-          <ArrowUpRight size={16} />
-        </a>
+      {/* Content */}
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="font-display font-bold text-base mb-2 transition-colors duration-200" style={{ color: 'var(--ink)' }}>
+          {project.name}
+        </h3>
+        <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--ink-muted)' }}>
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tags.map((tag) => (
+            <span key={tag} className="tag">{tag}</span>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: 'var(--border)' }}>
+          <span className="text-xs font-medium" style={{ color: 'var(--ink-subtle)' }}>
+            View project
+          </span>
+          <a
+            href={projectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${project.name}`}
+            className="h-8 w-8 flex items-center justify-center rounded-lg border transition-all duration-200"
+            style={{ borderColor: 'var(--border)', color: 'var(--ink-muted)' }}
+            onMouseEnter={e => {
+              const t = e.currentTarget as HTMLElement;
+              t.style.borderColor = 'var(--accent)';
+              t.style.color = 'var(--accent)';
+              t.style.background = 'var(--accent-pale)';
+            }}
+            onMouseLeave={e => {
+              const t = e.currentTarget as HTMLElement;
+              t.style.borderColor = 'var(--border)';
+              t.style.color = 'var(--ink-muted)';
+              t.style.background = 'transparent';
+            }}
+          >
+            <ArrowUpRight size={15} />
+          </a>
+        </div>
       </div>
     </motion.div>
   );

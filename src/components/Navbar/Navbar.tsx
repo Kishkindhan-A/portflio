@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Download, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { KALogo } from '../ui/KALogo';
 import { profile } from '../../data/profile';
@@ -16,12 +16,12 @@ const NAV_ITEMS = [
 ];
 
 export function Navbar() {
-  const [scrolled,    setScrolled]    = useState(false);
-  const [mobileOpen,  setMobileOpen]  = useState(false);
+  const [scrolled,   setScrolled]   = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
-    function onScroll() { setScrolled(window.scrollY > 20); }
+    function onScroll() { setScrolled(window.scrollY > 24); }
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -36,51 +36,56 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -40, opacity: 0 }}
+      initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0,  opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-4 inset-x-0 mx-auto z-50 w-[94%] max-w-6xl pointer-events-auto"
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 inset-x-0 z-50"
     >
       <nav
-        className={`flex items-center justify-between rounded-3xl border px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-500 ${
-          scrolled
-            ? 'bg-white/90 border-slate-200/90 backdrop-blur-2xl shadow-[0_10px_30px_-5px_rgba(15,23,42,0.06),0_1px_3px_rgba(15,23,42,0.04)]'
-            : 'bg-white/75 border-slate-200/70 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(15,23,42,0.03)]'
-        }`}
+        className="flex items-center justify-between px-5 sm:px-8 lg:px-10 py-3.5 transition-all duration-300"
+        style={{
+          background: scrolled ? 'rgba(248,248,245,0.95)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
+        }}
       >
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group" aria-label="Go to home">
-          <div className="transition-transform duration-300 group-hover:scale-105">
-            <KALogo size={34} />
+        <Link to="/" className="flex items-center gap-2.5 group" aria-label="Home">
+          <div className="transition-transform duration-200 group-hover:scale-105">
+            <KALogo size={32} />
           </div>
-          <span className="hidden sm:inline font-display font-bold tracking-wide text-sm text-slate-900 group-hover:text-emerald-light transition-colors">
-            {profile.name.toUpperCase()}
+          <span
+            className="hidden sm:inline font-display font-bold text-sm"
+            style={{ color: 'var(--ink)' }}
+          >
+            {profile.name}
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-1 font-mono text-xs tracking-wider p-1 rounded-2xl bg-slate-100/70 border border-slate-200/60 backdrop-blur-md">
+        <ul className="hidden md:flex items-center gap-1 text-sm">
           {NAV_ITEMS.map((item) => (
             <li key={item.id}>
               <Link
                 to={item.path}
-                className={`relative px-3.5 py-1.5 rounded-xl uppercase transition-all duration-300 block font-medium ${
-                  isActive(item.path)
-                    ? 'text-emerald-light font-bold'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
-                }`}
+                className="relative px-3 py-1.5 rounded-md block font-medium transition-colors duration-150"
+                style={{
+                  color: isActive(item.path) ? 'var(--accent)' : 'var(--ink-muted)',
+                }}
+                onMouseEnter={e => {
+                  if (!isActive(item.path)) (e.currentTarget as HTMLElement).style.color = 'var(--ink)';
+                }}
+                onMouseLeave={e => {
+                  if (!isActive(item.path)) (e.currentTarget as HTMLElement).style.color = 'var(--ink-muted)';
+                }}
               >
                 {item.label}
                 {isActive(item.path) && (
                   <motion.div
-                    layoutId="nav-active-pill"
-                    className="absolute inset-0 rounded-xl -z-10"
-                    style={{
-                      background: '#FFFFFF',
-                      border: '1px solid rgba(226, 232, 240, 0.95)',
-                      boxShadow: '0 2px 8px rgba(15, 23, 42, 0.05)',
-                    }}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    layoutId="nav-active"
+                    className="absolute inset-0 -z-10 rounded-md"
+                    style={{ background: 'var(--accent-pale)' }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                   />
                 )}
               </Link>
@@ -92,57 +97,75 @@ export function Navbar() {
         <a
           href={profile.resumeUrl}
           download
-          className="hidden sm:inline-flex items-center gap-2 rounded-2xl border border-slate-900 bg-slate-900 px-4 py-2 text-xs font-mono font-semibold tracking-wider text-white hover:bg-slate-800 hover:shadow-[0_4px_14px_rgba(15,23,42,0.18)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300"
+          className="hidden sm:inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold transition-all duration-200 hover:-translate-y-px"
+          style={{
+            background: 'var(--ink)',
+            borderColor: 'var(--ink)',
+            color: '#fff',
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLElement).style.background = '#333';
+            (e.currentTarget as HTMLElement).style.borderColor = '#333';
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLElement).style.background = 'var(--ink)';
+            (e.currentTarget as HTMLElement).style.borderColor = 'var(--ink)';
+          }}
         >
-          RESUME <Download size={13} />
+          Resume
         </a>
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden h-10 w-10 flex items-center justify-center rounded-2xl liquid-bubble text-slate-700 hover:text-emerald-light"
+          className="md:hidden h-9 w-9 flex items-center justify-center rounded-lg border transition-colors duration-150"
+          style={{ borderColor: 'var(--border)', color: 'var(--ink-muted)' }}
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </nav>
 
-      {/* Mobile dropdown */}
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0,  scale: 1 }}
-          exit={{    opacity: 0, y: -10, scale: 0.98 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-2.5 rounded-3xl border border-slate-200/90 bg-white/96 backdrop-blur-2xl p-4 md:hidden shadow-[0_20px_50px_rgba(15,23,42,0.1)]"
-        >
-          <ul className="flex flex-col gap-1.5 font-mono text-sm">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                <Link
-                  to={item.path}
-                  className={`w-full text-left px-4 py-3 rounded-2xl uppercase tracking-wider block transition-all ${
-                    isActive(item.path)
-                      ? 'text-emerald-light bg-emerald-glow/10 border border-emerald-glow/25 font-bold'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                  }`}
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="md:hidden mx-4 mt-1 rounded-xl border p-4 shadow-sm"
+            style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+          >
+            <ul className="flex flex-col gap-1 text-sm">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    to={item.path}
+                    className="block px-4 py-2.5 rounded-lg font-medium transition-colors"
+                    style={{
+                      color: isActive(item.path) ? 'var(--accent)' : 'var(--ink-muted)',
+                      background: isActive(item.path) ? 'var(--accent-pale)' : 'transparent',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li className="pt-1 border-t mt-1" style={{ borderColor: 'var(--border)' }}>
+                <a
+                  href={profile.resumeUrl}
+                  download
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold"
+                  style={{ background: 'var(--ink)', color: '#fff' }}
                 >
-                  {item.label}
-                </Link>
+                  Download Resume
+                </a>
               </li>
-            ))}
-            <li className="pt-1">
-              <a
-                href={profile.resumeUrl}
-                download
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-slate-900 text-white text-sm font-mono font-semibold"
-              >
-                RESUME <Download size={14} />
-              </a>
-            </li>
-          </ul>
-        </motion.div>
-      )}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

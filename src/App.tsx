@@ -10,6 +10,7 @@ import { ProjectsPage } from './pages/ProjectsPage';
 import { JourneyPage } from './pages/JourneyPage';
 import { CertificationsPage } from './pages/CertificationsPage';
 import { ContactPage } from './pages/ContactPage';
+import { Chatbot } from './components/Chatbot/Chatbot';
 
 export default function App() {
   return (
@@ -18,7 +19,7 @@ export default function App() {
         <CyberBackground />
         <CustomCursor />
         <Navbar />
-        <main className="pt-24">
+        <main className="pt-16">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
@@ -30,6 +31,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <Chatbot />
       </div>
     </BrowserRouter>
   );

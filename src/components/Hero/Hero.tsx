@@ -1,6 +1,6 @@
-import { useEffect, useState, type ReactNode } from 'react';
-import { motion, type Variants } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail, MousePointer2, Sparkles } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { GlobeCanvas } from '../../scenes/Globe/GlobeCanvas';
 import { Button } from '../ui/Button';
 import { profile } from '../../data/profile';
@@ -12,7 +12,7 @@ function LiveClock() {
     function tick() {
       setTime(
         new Date().toLocaleTimeString('en-IN', {
-          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true,
+          hour: '2-digit', minute: '2-digit', hour12: true,
         })
       );
     }
@@ -24,85 +24,80 @@ function LiveClock() {
   return <span>{time}</span>;
 }
 
-const container: Variants = {
+const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
 };
-const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-[calc(100vh-6rem)] pt-8 pb-16 flex items-center">
+    <section id="home" className="relative min-h-[calc(100vh-5.5rem)] pt-10 pb-20 flex items-center">
       <div className="section-container w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
 
           {/* LEFT: content */}
-          <motion.div variants={container} initial="hidden" animate="show" className="relative z-20">
+          <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-20">
 
-            {/* Availability status badge */}
-            <motion.div
-              variants={item}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-emerald-800 shadow-sm mb-6"
-            >
+            {/* Availability */}
+            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-8">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
               </span>
-              <span className="text-xs font-semibold tracking-wide">
-                Available for internships &amp; developer roles
+              <span className="text-sm font-medium" style={{ color: 'var(--accent)' }}>
+                Available for internships & developer roles
               </span>
             </motion.div>
 
             {/* Greeting */}
-            <motion.p variants={item} className="text-slate-600 text-lg font-body mb-1.5 flex items-center gap-2 font-medium">
-              Hi, I&apos;m <Sparkles size={16} className="text-emerald-light" />
+            <motion.p variants={fadeUp} className="text-base mb-1" style={{ color: 'var(--ink-muted)' }}>
+              Hey, I'm
             </motion.p>
 
             {/* Name */}
             <motion.h1
-              variants={item}
-              className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight bg-clip-text text-transparent glow-text mb-4"
-              style={{
-                backgroundImage: 'linear-gradient(135deg, #0F172A 40%, #059669 85%, #0284C7 100%)',
-              }}
+              variants={fadeUp}
+              className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl tracking-tight mb-3"
+              style={{ color: 'var(--ink)', lineHeight: '1.05' }}
             >
-              {profile.name}
+              {profile.firstName}
+              <span className="block" style={{ color: 'var(--accent)' }}>A.</span>
             </motion.h1>
 
-            {/* Human designer / developer specialization chips */}
-            <motion.div variants={item} className="flex flex-wrap items-center gap-2 mb-6">
+            {/* Roles */}
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-6">
               {profile.roles.map((role) => (
-                <span
-                  key={role}
-                  className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100/90 text-slate-700 border border-slate-200/80 shadow-xs"
-                >
-                  {role}
-                </span>
+                <span key={role} className="tag">{role}</span>
               ))}
             </motion.div>
 
             {/* Bio */}
-            <motion.p variants={item} className="text-slate-600 leading-relaxed max-w-lg mb-8 text-sm sm:text-base font-normal">
+            <motion.p
+              variants={fadeUp}
+              className="leading-relaxed max-w-lg mb-8 text-base"
+              style={{ color: 'var(--ink-muted)' }}
+            >
               {profile.heroIntro}
             </motion.p>
 
             {/* CTA buttons */}
-            <motion.div variants={item} className="flex flex-wrap items-center gap-4 mb-10 relative z-30">
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4 mb-10">
               <Button to="/projects" icon={<ArrowRight size={15} />}>
-                VIEW PROJECTS
+                View Projects
               </Button>
               <Button to="/contact" variant="ghost">
-                CONTACT ME
+                Get in touch
               </Button>
             </motion.div>
 
             {/* Social links */}
-            <motion.div variants={item} className="relative z-30">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Connect With Me</p>
-              <div className="flex items-center gap-3.5">
+            <motion.div variants={fadeUp}>
+              <p className="text-xs mb-3" style={{ color: 'var(--ink-subtle)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Find me on</p>
+              <div className="flex items-center gap-3">
                 {[
                   { icon: Github,   href: profile.github,               label: 'GitHub'   },
                   { icon: Linkedin, href: profile.linkedin,             label: 'LinkedIn' },
@@ -114,82 +109,83 @@ export function Hero() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="h-11 w-11 flex items-center justify-center rounded-2xl liquid-bubble text-slate-700 hover:text-emerald-light"
+                    className="h-10 w-10 flex items-center justify-center rounded-lg border transition-all duration-200 hover:-translate-y-0.5"
+                    style={{
+                      background: 'var(--surface)',
+                      borderColor: 'var(--border)',
+                      color: 'var(--ink-muted)',
+                    }}
+                    onMouseEnter={e => {
+                      const t = e.currentTarget;
+                      t.style.borderColor = 'var(--accent)';
+                      t.style.color = 'var(--accent)';
+                    }}
+                    onMouseLeave={e => {
+                      const t = e.currentTarget;
+                      t.style.borderColor = 'var(--border)';
+                      t.style.color = 'var(--ink-muted)';
+                    }}
                   >
-                    <Icon size={18} />
+                    <Icon size={17} />
                   </a>
                 ))}
               </div>
             </motion.div>
 
-            {/* Metric widgets */}
-            <motion.div
-              variants={item}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mt-10 max-w-xl"
-            >
+            {/* Stats */}
+            <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 max-w-xl">
               {profile.metrics.map((m) => (
                 <div
                   key={m.label}
-                  className="glass-panel px-4 py-3.5 text-center hover:scale-[1.02] transition-transform duration-300"
+                  className="rounded-xl p-4 text-center"
+                  style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
                 >
-                  <p className="font-display font-extrabold text-2xl text-slate-900">
+                  <p className="font-display font-extrabold text-2xl" style={{ color: 'var(--ink)' }}>
                     {m.value}
                   </p>
-                  <p className="text-[11px] font-medium text-slate-500 mt-1 uppercase tracking-wider">{m.label}</p>
+                  <p className="text-[11px] mt-0.5 font-medium uppercase tracking-wider" style={{ color: 'var(--ink-subtle)' }}>
+                    {m.label}
+                  </p>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: globe + Human Snapshot Card */}
+          {/* RIGHT: globe + info card */}
           <div className="relative z-10">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
               <GlobeCanvas />
             </motion.div>
 
-            {/* Designer Snapshot Card */}
+            {/* Small info card */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="hidden md:block absolute top-4 right-0 glass-panel-strong px-5 py-4 space-y-3 min-w-[185px] rounded-3xl shadow-lg border border-slate-200/80"
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="hidden md:block absolute top-6 right-0 px-5 py-4 rounded-xl space-y-2.5 min-w-[175px]"
+              style={{
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                boxShadow: '0 4px 16px rgba(26,26,24,0.06)',
+              }}
             >
-              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Current Base</span>
-                <span className="text-xs font-semibold text-slate-800">India 🇮🇳</span>
-              </div>
-              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Local Time</span>
-                <span className="text-xs font-mono font-medium text-emerald-700"><LiveClock /></span>
-              </div>
-              <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</span>
-                <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Open to Work
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Focus</span>
-                <span className="text-xs font-medium text-slate-700">UI/UX &amp; IoT Systems</span>
-              </div>
-            </motion.div>
-
-            {/* Scroll hint */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="hidden md:flex absolute bottom-4 right-2 flex-col items-center gap-1.5 text-slate-400"
-            >
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">Scroll</span>
-              <div className="h-8 w-5 rounded-full border border-slate-300 flex items-start justify-center p-1 backdrop-blur-sm">
-                <MousePointer2 size={10} className="animate-pulse-slow text-emerald-600" />
-              </div>
+              {[
+                { label: 'Location', value: 'India 🇮🇳' },
+                { label: 'Local time', value: <LiveClock /> },
+                { label: 'Status', value: 'Open to work', green: true },
+                { label: 'Focus', value: 'UI/UX & IoT' },
+              ].map(({ label, value, green }) => (
+                <div key={label} className="flex items-center justify-between gap-3 text-xs">
+                  <span style={{ color: 'var(--ink-subtle)', fontWeight: 500 }}>{label}</span>
+                  <span style={{ color: green ? 'var(--accent)' : 'var(--ink)', fontWeight: 600 }}>
+                    {value}
+                  </span>
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
