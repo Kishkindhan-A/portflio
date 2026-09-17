@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   DESIGN SYSTEM — Kishkindhan Portfolio (Luxury Light Aesthetic)
+   Clean Porcelain White · Ink Charcoal · Emerald Green · Sky Blue
+   ================================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Core tokens */
+  --color-bg:          #FAFCFF;
+  --color-surface:     #FFFFFF;
+  --color-card:        rgba(255, 255, 255, 0.85);
+  --color-border:      rgba(226, 232, 240, 0.85);
+  --color-border-hi:   rgba(203, 213, 225, 0.95);
+
+  --color-accent:      #059669;
+  --color-accent-dim:  #047857;
+  --color-accent-glow: rgba(16, 185, 129, 0.22);
+
+  --color-sky:         #0284C7;
+  --color-sky-dim:     #0369A1;
+  --color-sky-glow:    rgba(2, 132, 199, 0.18);
+
+  --color-fg:          #0F172A;
+  --color-fg-muted:    #475569;
+  --color-fg-subtle:   #64748B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.2);
+  color: #065F46;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  {
+  background: rgba(203, 213, 225, 0.8);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.6); }
+
+/* ================================================================
+   COMPONENT LAYER — Luxury Frosted Glass Cards (White Canvas)
+   ================================================================ */
+@layer components {
+
+  /* ── Base frosted glass panel ─────────────────────────────────── */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+      0 4px 20px -2px rgba(15, 23, 42, 0.04),
+      0 12px 32px -4px rgba(15, 23, 42, 0.05);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-panel:hover {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+      0 10px 30px -4px rgba(15, 23, 42, 0.08),
+      0 0 24px rgba(16, 185, 129, 0.12);
+  }
+
+  /* ── High-emphasis glass card ─────────────────────────────────── */
+  .glass-panel-strong {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid var(--color-border-hi);
+    border-radius: 2rem;
+    box-shadow:
+      inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+      0 16px 48px -8px rgba(15, 23, 42, 0.08),
+      0 2px 8px rgba(15, 23, 42, 0.03);
+  }
+
+  /* ── Pill widget ──────────────────────────────────────────────── */
+  .liquid-pill {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  }
+
+  /* ── Interactive bubble (icons, social buttons) ───────────────── */
+  .liquid-bubble {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border);
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+      0 2px 8px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .liquid-bubble:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+      0 8px 20px -2px rgba(15, 23, 42, 0.08),
+      0 0 16px rgba(16, 185, 129, 0.16);
+  }
+
+  /* ── Utility classes ──────────────────────────────────────────── */
+  .label-tag {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+  }
+
+  .accent-border {
+    border: 1px solid rgba(16, 185, 129, 0.35);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 24px rgba(16, 185, 129, 0.25);
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-10;
+  }
+}
+
+/* ================================================================
+   ANIMATIONS & EFFECTS
+   ================================================================ */
+
+/* Shimmer sweep */
+@keyframes liquidShimmer {
+  0%   { transform: translateX(-150%) skewX(-15deg); }
+  100% { transform: translateX(150%) skewX(-15deg); }
+}
+
+.liquid-shimmer { position: relative; overflow: hidden; }
+
+.liquid-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: translateX(-150%) skewX(-15deg);
+  pointer-events: none;
+}
+
+.liquid-shimmer:hover::after {
+  animation: liquidShimmer 1.2s ease-in-out;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ================================================================
+   CUSTOM CURSOR — Ink & Emerald
+   ================================================================ */
+.custom-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #0F172A;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+  box-shadow: 0 0 8px rgba(15, 23, 42, 0.3);
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(16, 185, 129, 0.6);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease-out, width 0.2s ease, height 0.2s ease,
+              opacity 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(1px);
+}
